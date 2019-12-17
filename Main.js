@@ -14,6 +14,8 @@ import {
     Land
 } from "./js/runtime/Land.js";
 import { Birds } from "./js/player/Birds.js";
+import { Score } from "./js/player/Score.js";
+import { StartButton } from "./js/player/StartButton.js";
 
 export class Main {
     constructor() {
@@ -57,6 +59,8 @@ export class Main {
             .put('land',new Land())
             .put('pipes',[])
             .put('birds',new Birds())
+            .put('score',new Score())
+            .put('startButton',new StartButton())
         this.addClick();
         this.director.createPipes();
         this.director.run();

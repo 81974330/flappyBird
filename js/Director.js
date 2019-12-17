@@ -51,6 +51,7 @@ export class Director {
         const birds = this.dataStore.get('birds');
         const land = this.dataStore.get('land');
         const pipes = this.dataStore.get('pipes');
+        const score = this.dataStore.get('score');
 
         // 小鸟撞天撞地
         if (birds.birdsY[0] < 0 || birds.birdsY[0] + birds.birdsHeight[0] > land.y) {
@@ -80,6 +81,12 @@ export class Director {
                 return;
             } 
         }
+        // 加分 小鸟的左边大于水管的右边 且 处于加分的状态
+      if (birds.birdsX[0]>pipes[0].x+pipes[0].width && score.canAdd){
+        score.scoreNum++;
+        // 关闭加分
+        score.canAdd = false;
+      } 
     }
 
 
@@ -99,6 +106,8 @@ export class Director {
             if (pipes[0].x + pipes[0].width < 0 && pipes.length == 4) {
                 pipes.shift();
                 pipes.shift();
+                // 开启加分
+                this.dataStore.get('score').canAdd =true;
             }
             // 遍历pipes 并画图
             pipes.forEach(p => {
@@ -106,6 +115,7 @@ export class Director {
             })
 
             this.dataStore.get('birds').draw();
+            this.dataStore.get('score').draw();
             this.dataStore.get('land').draw();
 
             this.id = requestAnimationFrame(() => this.run());
@@ -113,6 +123,17 @@ export class Director {
         } else {
             // 游戏结束
             // alert("游戏结束");
+          this.dataStore.get('background').draw();
+          this.dataStore.get('pipes').forEach(p => {
+            p.draw();
+          })
+          this.dataStore.get('birds').draw();
+          this.dataStore.get('score').draw();
+          this.dataStore.get('land').draw();
+            this.dataStore.get('startButton').draw();
+            // 清除id
+            cancelAnimationFrame(this.id);
+            // 清除上一把游戏中的数据
             this.dataStore.destroy();
         }
     }
