@@ -8,9 +8,11 @@
 		"newFeature": true
 	},
 	"compileType": "game",
-	"libVersion": "1.9.94",
+	"libVersion": "2.0.4",
 	"appid": "wxafeb0c4cc7d04010",
 	"projectname": "flappyBird",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
